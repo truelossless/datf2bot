@@ -6,7 +6,7 @@
 		"password": "YOUR PASSWORD"
 	},
 	
-	"token": "YOUR CLIENT ID TOKEN",
+	"token": "YOUR BOT SECRET TOKEN",
 	"prefix": "!:"
 
 }
