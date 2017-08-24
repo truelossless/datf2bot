@@ -1,7 +1,7 @@
 // checks for TF2 updates every 2 minutes.
 
-var fs = require('fs');
-var request = require('request');
+const fs = require('fs');
+const request = require('request');
 const cheerio = require('cheerio');
 var EventEmitter = require('events').EventEmitter;
 exports.updates = new EventEmitter;
@@ -17,25 +17,29 @@ function checkForUpdates() {
 					return;
 				}
 				
-				// new update because ids are different
+				// convert data into an object
+				data = JSON.parse(data);
+
+				// update id based on post id
 				var updateId = ($('.postLink').first().attr('href')).slice(12);
 				
-				if(data.id != updateId) {
+				if(data.id != updateId) { // new update because ids are different
 					
-					data.date = $('h2').first().text().slice(0, -11);
+					// date formatting
+					let parsedDate = $('h2').first().text().slice(0, -11);
+					data.date.month = parsedDate.match(/[A-Za-z]+/)[0];
+					data.date.day = parsedDate.match(/ [0-9]+/)[0];
+					data.date.year = parsedDate.match(/[0-9]+$/)[0];
 					// if there is bold tags, it must be a major update
-					data.majorupdate = $('ul').first().find('b').get().length;
+					data.majorupdate = !!$('ul').first().find('b').get().length;
 					// get the number of changes based on number of <li>, excluding these representing a category of changes, therefore not a change themselves.
 					data.changes = ($('ul').first().find('li').get().length) - ($('ul').first().find('li ul').get().length);
-					// update id based on post id
 					data.id = updateId;
 					
-					let update = `Team Fortress 2 Update Released\n${data.date}\n` + data.majorupdate ? 'Major update' : 'Minor update' + ` (${data.changes} changes)\nhttp://teamfortress.com/post.php?id=${data.id}`;
+					fs.writeFile('lastupdate.json',  JSON.stringify(data, null, 4));
 					
-					fs.writeFile('lastupdate.json',  data);
-					
-					console.log(update);
-					exports.updates.emit('new', update);
+					console.log('New TF2 update !');
+					exports.updates.emit('new', data);
 				}
 			});
 		}

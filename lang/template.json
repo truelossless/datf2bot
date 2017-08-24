@@ -1,0 +1,24 @@
+{
+    "code": "two-letter code here (e.g de)",
+
+    "newupdate": "translation for: New TF2 update available !",
+    "change": "translation for: change",
+    "changes": "translation for: changes",
+    "monthes": [
+        "Month 1",
+        "Month 2",
+        "Month 3",
+        "Month 4",
+        "Month 5",
+        "Month 6",
+        "Month 7",
+        "Month 8",
+        "Month 9",
+        "Month 10",
+        "Month 11",
+        "Month 12"
+    ],
+    "majorupdate": "translation for: major update (case sensitive please!!)",
+    "minorupdate": "translation for: minor update",
+    "lastupdate": "translation for: Latest TF2 update dates from"
+}

@@ -10,7 +10,7 @@ https://discordapp.com/oauth2/authorize?client_id=346950445819756545&scope=bot
 
 This will give all permissions to Datf2bot: don't worry, he won't do anything silly like banning every one ! (you can check the source code if you don't believe me :devil:).
 
-However, you can give him custom permissions on your server to make the things safer - just in case - ! To do that, go to the following URL and setup all the permissions yourself, but __make sure Datf2bot still has the right to post messages !!__ If you decided to go with this method, you'll need too the "Client Id"; which is:
+However, you can give him custom permissions on your server to make the things safer - just in case - ! To do that, go to the following URL and setup all the permissions yourself, but __make sure Datf2bot still has the right to post messages !!__ If you decided to go with this method, you'll also need the "Client Id", which is:
     
     346950445819756545
 
@@ -26,17 +26,37 @@ If you want to, you can create a text channel called tf2updates, and the bot wil
 
 ### Alerts (admin only)
 
-
     !:alerts
 
-Display whether or not the updates alerts are enabled. If disabled, the server won't get notified if a TF2 update drops. If enabled, Datf2bot will post a message with multiple informations related to the update (date, number of changes, minor or major update, link to the original post on teamfortress.com)
+Display whether or not the updates alerts are enabled. If disabled, the server won't get notified if a TF2 update drops. If enabled, Datf2bot will post a message with multiple informations related to the update (date, number of changes, minor or major update, link to the original post on teamfortress.com).
 
     !:alerts on
 
 Enable updates alerts (enabled by default)
 
     !:alerts off
+
 Disable updates alerts
+
+### Lang (admin only)
+
+    !:lang
+
+Display which language Datf2bot is set on, in your guild. Please note that this language will only apply with update messages and won't work for small commands, in order to spare the database.
+
+    !:lang LANGUAGE
+
+Where LANGAUGE is a 2 letter country code. Set the language to given value. Currently, supported languages are en and fr.
+
+### Lastupdate (everyone)
+
+    !:lastupdate
+
+Print various stats about last TF2 update and a link to the teamfortress.com original blogpost.
+
+## Troubleshooting
+
+if you experience any difficulty, open an issue by clicking the "issue" tab.
 
 ## Warranty
 
@@ -50,16 +70,17 @@ Clone or download this repository. Edit config.json with your settings.
 
 Create a table called "datf2bot" with the following columns:
 
-|  name  |primary| A.I | type  |
-|:------:|:-----:|:---:|:-----:|
-|id      |yes    |yes  |int    |
-|guild_id|no     |no   |varchar|
-|alerts  |no     |no   |boolean|
+|  name  |primary| A.I |  type  |
+|:------:|:-----:|:---:|:------:|
+|id      |yes    |yes  |int     |
+|guild_id|no     |no   |char(18)|
+|alerts  |no     |no   |boolean |
+|lang    |no     |no   |char(2) |
 
 
 Make sure you have at least nodejs 6 and npm installed.
 Run `npm install` in the main directory to install all dependencies.
-Then, run the bot with `node datf2bot.js` .
+Then, start the bot with `node datf2bot.js` .
 
 ## How does it works
 
@@ -68,3 +89,6 @@ There isn't a TF2 API or such things (Well there is a RSS flux for the news but 
 ## Help me !
 
 Any pull requests are welcome, especially for a better translation !
+Translation files can be found in the lang directory.
+Copy paste template.json to make a translation of your language, or improve one already existing by editing it.
+When you're done, submit a pull request.

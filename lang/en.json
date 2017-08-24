@@ -1,0 +1,24 @@
+{
+    "code": "en",
+
+    "newupdate": "New TF2 update available !",
+    "change": "change",
+    "changes": "changes",
+    "monthes": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ],
+    "majorupdate": "major update",
+    "minorupdate": "minor update",
+    "lastupdate": "Latest TF2 update dates from"
+}
