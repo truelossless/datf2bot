@@ -82,7 +82,7 @@ Make sure you have at least nodejs 6 and npm installed.
 Run `npm install` in the main directory to install all dependencies.
 Then, start the bot with `node datf2bot.js` .
 
-## How does it works
+## How does it work
 
 There isn't a TF2 API or such things (Well there is a RSS flux for the news but it's broken lul). So Datf2bot uses an HTML parser to get data from teamfortress.com, every 10s.
 
