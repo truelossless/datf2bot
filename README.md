@@ -48,9 +48,18 @@ Clone or download this repository. Edit config.json with your settings.
 
 > Note: you need a mysql database !
 
+Create a table called "datf2bot" with the following columns:
+
+|  name  |primary| A.I | type  |
+|:------:|:-----:|:---:|:-----:|
+|id      |yes    |yes  |int    |
+|guild_id|no     |no   |varchar|
+|alerts  |no     |no   |boolean|
+
+
 Make sure you have at least nodejs 6 and npm installed.
-Then, run the bot with ```node datf2bot.js``` .
-Dependencies will be of course automatically installed.
+Run `npm install` in the main directory to install all dependencies.
+Then, run the bot with `node datf2bot.js` .
 
 ## How does it works
 

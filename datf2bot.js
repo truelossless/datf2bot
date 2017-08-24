@@ -9,9 +9,7 @@ var db = mysql.createPool({
 	host: config.mysql.host,
 	user: config.mysql.user,
 	database: config.mysql.database,
-	password: config.mysql.password,
-	// mandatory to handle guilds id
-	supportBigNumbers: true
+	password: config.mysql.password
 });
 
 const Discord = require('discord.js');
@@ -20,16 +18,16 @@ const client = new Discord.Client();
 client.login(config.token);
 
 client.on('ready', () => {
-  client.user.setGame('!:help');
+  client.user.setGame(`${config.prefix}help`);
 })
 
 client.on('message',  msg => {
 	// don't answer to bots
 	if(msg.author.bot) return;
 	// ignore regular messages
-	if(msg.content.indexOf('!:') !== 0) return;
+	if(msg.content.indexOf(config.prefix) !== 0) return;
 
-	const args = msg.content.slice(2).trim().split(/ +/g);
+	const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
 	if(command == 'alerts') {
@@ -85,7 +83,7 @@ client.on('message',  msg => {
 			
 			// syntax error
 			} else {
-				msg.channel.send('Syntax: !:alerts [on|off]');
+				msg.channel.send(`Syntax: ${config.prefix}alerts [on|off]`);
 			}
 
 		// get current alerts status
@@ -108,6 +106,16 @@ client.on('message',  msg => {
 				});
 			});
 		}
+
+	} else if(command == lastupdate) {
+		fs.readFile('lastupdate.json', (err, data) => {
+			if(err) {
+				console.log(err);
+				msg.channel.send('An error has occured, try again later.');
+				return;
+			}
+			msg.channel.send(`Latest TF2 update dates from ${data.date} \nFeaturing ${data.changes} changes (` + (data.majorupdate ? 'major update': 'minor update') + `\nhttp://teamfortress.com/post.php?id=${data.id}`);
+		});
 	}
 });
 
@@ -116,7 +124,7 @@ client.on('guildCreate', guild => {
 	// defaultchannel "hack"
 	var defaultChannel = guild.channels.filter(c => c.type === "text" && c.permissionsFor(guild.me).has("SEND_MESSAGES")).sort((a, b) => a.position - b.position || a.id - b.id).first();
 	// send a welcome message
-	defaultChannel.send('Hi ! I\'m your new TF2 Bot !\nI can notify the whole server every time an update drops.\nUse !:help for help !');
+	defaultChannel.send(`Hi ! I\'m your new TF2 Bot !\nI can notify the whole server every time an update drops.\nUse ${config.prefix}help for help !`);
 	
 	// add the guild to the database
 	db.getConnection( (coerr, connection) => {
@@ -142,7 +150,6 @@ client.on('guildDelete', guild => {
 	// remove guild from db
 	db.getConnection( (coerr, connection) => {
 		if(coerr) {
-			msg.channel.send('An error has occured, try again later.');
 			console.log(coerr);
 			return;
 		}

@@ -10,25 +10,32 @@ function checkForUpdates() {
 	request('http://teamfortress.com?tab=updates', function(error, response, body) {
 		if(response.statusCode == 200 && !error) {
 			const $ = cheerio.load(body);
-			fs.readFile('lastupdate.txt', (err, lastUpdateId) => {
-				if(!err) {
-					var updateId = ($('.postLink').first().attr('href')).slice(12);
-					if(lastUpdateId != updateId) {
-						// new update because ids are different
-						fs.writeFile('lastupdate.txt',  updateId);
-						
-						let update = 'New TF2 Update !';
-						// date
-						update += '\n' + ($('h2').first().text()).slice(0, -11);
-						// if there is bold tags, it must be a major update
-						update += '\n' + ($('ul').first().find('b').get().length !== 0 ? 'Major update' : 'Minor update');
-						// get the number of changes based on number of <li>, excluding these representing a category of change, therefore not a change themselves.
-						update += ' (' + (($('ul').first().find('li').get().length) - ($('ul').first().find('li ul').get().length)) + ' changes)';
-						update += '\nhttp://teamfortress.com/' + $('.postLink').first().attr('href');
-						
-						console.log(update);
-						exports.updates.emit('new', update);
-					}
+			fs.readFile('lastupdate.json', (err, data) => {
+				
+				if(err) {
+					console.log(err);
+					return;
+				}
+				
+				// new update because ids are different
+				var updateId = ($('.postLink').first().attr('href')).slice(12);
+				
+				if(data.id != updateId) {
+					
+					data.date = $('h2').first().text().slice(0, -11);
+					// if there is bold tags, it must be a major update
+					data.majorupdate = $('ul').first().find('b').get().length;
+					// get the number of changes based on number of <li>, excluding these representing a category of changes, therefore not a change themselves.
+					data.changes = ($('ul').first().find('li').get().length) - ($('ul').first().find('li ul').get().length);
+					// update id based on post id
+					data.id = updateId;
+					
+					let update = `Team Fortress 2 Update Released\n${data.date}\n` + data.majorupdate ? 'Major update' : 'Minor update' + ` (${data.changes} changes)\nhttp://teamfortress.com/post.php?id=${data.id}`;
+					
+					fs.writeFile('lastupdate.json',  data);
+					
+					console.log(update);
+					exports.updates.emit('new', update);
 				}
 			});
 		}
