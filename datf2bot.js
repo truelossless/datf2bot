@@ -27,7 +27,7 @@ client.login(config.token);
 client.on('ready', () => {
 	// setGame() isn't working in this discord.js version ...
 	client.user.setPresence({ game: { name: `${config.prefix}help`, type: 0 } });
-})
+});
 
 client.on('message',  msg => {
 	// don't answer to bots
@@ -191,7 +191,7 @@ client.on('message',  msg => {
 					});
 				});
 			} else {
-				msg.channel.send('This language isn\'t supported. Available languages: ' + Object.keys(translations).join(', '));
+				msg.channel.send(`This language isn't supported. Available languages: ${Object.keys(translations).join(', ')}.`);
 			}
 		} else {
 			// display the current language
@@ -218,7 +218,7 @@ client.on('message',  msg => {
 	} else if(command == 'help') {
 		if(args.length == 0) {
 			msg.channel.send(
-				`List of commands:\n`
+				`List of commands:\n\n`
 				+ `${config.prefix}alerts (admin only)\n`
 				+ `${config.prefix}lang (admin only)\n`
 				+ `${config.prefix}lastupdate (everyone)\n`

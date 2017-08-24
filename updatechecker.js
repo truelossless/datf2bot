@@ -28,7 +28,7 @@ function checkForUpdates() {
 					// date formatting
 					let parsedDate = $('h2').first().text().slice(0, -11);
 					data.date.month = parsedDate.match(/[A-Za-z]+/)[0];
-					data.date.day = parsedDate.match(/ [0-9]+/)[0];
+					data.date.day = parsedDate.match(/[0-9]+/)[0];
 					data.date.year = parsedDate.match(/[0-9]+$/)[0];
 					// if there is bold tags, it must be a major update
 					data.majorupdate = !!$('ul').first().find('b').get().length;
