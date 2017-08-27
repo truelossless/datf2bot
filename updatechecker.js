@@ -8,7 +8,7 @@ exports.updates = new EventEmitter;
 
 function checkForUpdates() {
 	request('http://teamfortress.com?tab=updates', function(error, response, body) {
-		if(response.statusCode == 200 && !error) {
+		if(!error && response.statusCode == 200) {
 			const $ = cheerio.load(body);
 			fs.readFile('lastupdate.json', (err, data) => {
 				
