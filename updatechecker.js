@@ -21,7 +21,12 @@ function checkForUpdates() {
 				data = JSON.parse(data);
 
 				// update id based on post id
-				var updateId = ($('.postLink').first().attr('href')).slice(12);
+				try { // to make sure that html was succefully parsed
+					var updateId = ($('.postLink').first().attr('href')).slice(12);
+				} catch (stringError) {
+					console.log("Incomplete response from teamfortress.com !")
+					return;
+				}
 				
 				if(data.id != updateId) { // new update because ids are different
 					
@@ -30,7 +35,7 @@ function checkForUpdates() {
 					data.date.month = parsedDate.match(/[A-Za-z]+/)[0];
 					data.date.day = parsedDate.match(/[0-9]+/)[0];
 					data.date.year = parsedDate.match(/[0-9]+$/)[0];
-					// if there is bold tags, it must be a major update
+					// if there are bold tags, it must be a major update
 					data.majorupdate = !!$('ul').first().find('b').get().length;
 					// get the number of changes based on number of <li>, excluding these representing a category of changes, therefore not a change themselves.
 					data.changes = ($('ul').first().find('li').get().length) - ($('ul').first().find('li ul').get().length);
