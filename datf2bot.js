@@ -282,7 +282,6 @@ updates.on('new', update => {
 	let sql = 'SELECT guild_id, lang FROM datf2bot WHERE alerts = true';
 	db.getConnection( (coerr, connection) => {
 		if(coerr) {
-			msg.channel.send('An error has occured, try again later.');
 			console.log(coerr);
 			return;
 		}
