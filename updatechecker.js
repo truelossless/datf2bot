@@ -24,7 +24,7 @@ function checkForUpdates() {
 				try { // to make sure that html was succefully parsed
 					var updateId = ($('.postLink').first().attr('href')).slice(12);
 				} catch (stringError) {
-					console.log("Incomplete response from teamfortress.com !")
+					console.log("Incomplete response from teamfortress.com !");
 					return;
 				}
 				
