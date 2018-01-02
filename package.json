@@ -1,11 +1,11 @@
 {
-  "name": "waho",
+  "name": "Datf2bot",
   "version": "1.0.0",
   "description": "A Discord bot that can alert you every new TF2 update.",
   "main": "datf2bot.js",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "discord.js": "^11.1.0",
+    "discord.js": "^11.2.1",
     "mysql": "^2.14.1",
     "request": "^2.81.0"
   },
