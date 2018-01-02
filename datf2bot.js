@@ -25,8 +25,7 @@ const client = new Discord.Client();
 client.login(config.token);
 
 client.on('ready', () => {
-	// setGame() isn't working in this discord.js version ...
-	client.user.setPresence({ game: { name: `${config.prefix}help`, type: 0 } });
+	client.user.setGame(`${config.prefix}help`);
 });
 
 client.on('message',  msg => {
