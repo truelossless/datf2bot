@@ -1,4 +1,4 @@
-// checks for TF2 updates every 2 minutes.
+// checks for TF2 updates every 10 seconds.
 
 const fs = require('fs');
 const request = require('request');
