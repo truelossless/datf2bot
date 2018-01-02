@@ -82,6 +82,14 @@ Make sure you have at least nodejs 6 and npm installed.
 Run `npm install` in the main directory to install all dependencies.
 Then, start the bot with `node datf2bot.js` .
 
+If you're planning to run the bot 24/7, I recommand using [pm2](https://github.com/Unitech/pm2).
+
+    npm install pm2 -g
+    
+You can now start the bot using pm2. It will continue running even if your ssh session ends and it will restart the bot if it stops for some reason.
+
+    pm2 start datf2bot.js
+    
 ## How does it work
 
 There isn't a TF2 API or such things (Well there is a RSS flux for the news but it's broken lul). So Datf2bot uses an HTML parser to get data from teamfortress.com, every 10s.
