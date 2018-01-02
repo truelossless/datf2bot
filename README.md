@@ -14,7 +14,7 @@ However, you can give him custom permissions on your server to make the things s
     
     346950445819756545
 
-https://discordapi.com/permissions.html#268435465
+https://discordapi.com/permissions.html
 
 ## Bot setup
 
