@@ -1,8 +1,16 @@
 // checks for TF2 updates every 10 seconds.
 
-const fs = require('fs');
+// http requests
 const request = require('request');
+
+// DOM  JQuery-like parser
 const cheerio = require('cheerio');
+
+const fs = require('fs');
+
+// errors handler
+const errors = require('./errors');
+
 var EventEmitter = require('events').EventEmitter;
 exports.updates = new EventEmitter;
 
@@ -13,7 +21,7 @@ function checkForUpdates() {
 			fs.readFile('lastupdate.json', (err, data) => {
 				
 				if(err) {
-					console.log(err);
+					errors.sendError('FETCH_UPDATE');
 					return;
 				}
 				
@@ -24,7 +32,7 @@ function checkForUpdates() {
 				try { // to make sure that html was succefully parsed
 					var updateId = ($('.postLink').first().attr('href')).slice(12);
 				} catch (stringError) {
-					console.log("Incomplete response from teamfortress.com !");
+					errors.sendError('HTML')
 					return;
 				}
 				
