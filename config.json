@@ -1,0 +1,12 @@
+{
+	"mysql": {
+		"host": "localhost",
+		"user": "YOUR USERNAME",
+		"database": "YOUR DATABASENAME",
+		"password": "YOUR PASSWORD"
+	},
+	
+	"token": "YOUR BOT SECRET TOKEN",
+	"prefix": "!:"
+
+}
